@@ -25,7 +25,7 @@ runs:
 
     - name: Install
       shell: bash
-      run: pnpm install --frozen-lockfile
+      run: pnpm i --frozen-lockfile --package-import-method clone
 
     - name: Commit lint
       uses: wagoid/commitlint-github-action@v5
