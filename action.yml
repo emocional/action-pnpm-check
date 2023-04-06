@@ -24,18 +24,18 @@ runs:
     - uses: emocional/action-pnpm-install@main
 
     - name: Install
-      shell: sh
+      shell: bash
       run: pnpm install --frozen-lockfile
 
     - name: Commit lint
       uses: wagoid/commitlint-github-action@v5
 
     - name: Check
-      shell: sh
+      shell: bash
       run: pnpm check
 
     - name: Build production
-      shell: sh
+      shell: bash
       env:
         NODE_ENV: production
       run: pnpm build
