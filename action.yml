@@ -1,0 +1,47 @@
+name: check pnpm project
+description: 'Install nodejs and pnpm environment and run most commons checks'
+
+branding:
+  icon: 'check-square'
+  color: 'green'
+
+inputs:
+  pnpm-version:
+    required: false
+    description: pnpm major version
+    default: '8'
+  node-version:
+    required: false
+    description: nodejs version
+    default: lts/gallium
+  token:
+    description: github token
+    default: ${{ github.token }}
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: emocional/action-pnpm-install@main
+
+    - name: Install
+      run: pnpm install --frozen-lockfile
+
+    - name: Commit lint
+      uses: wagoid/commitlint-github-action@v5
+
+    - name: Check
+      run: pnpm check
+
+    - name: Build production
+      env:
+        NODE_ENV: production
+      run: pnpm build
+
+    - name: Test
+      uses: ArtiomTr/jest-coverage-report-action@v2
+      with:
+        skip-step: install
+        output: comment, report-markdown
+        package-manager: pnpm
+        test-script: pnpm test:cov
+
