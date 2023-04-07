@@ -22,6 +22,9 @@ runs:
   using: 'composite'
   steps:
     - uses: emocional/action-pnpm-install@main
+      with:
+        node-version: ${{ inputs.node-version }}
+        pnpm-version: ${{ inputs.pnpm-version }}
 
     - name: Install
       shell: bash
