@@ -30,7 +30,7 @@ runs:
       shell: bash
       run: pnpm i --frozen-lockfile
       env:
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Commit lint
       uses: wagoid/commitlint-github-action@v5
