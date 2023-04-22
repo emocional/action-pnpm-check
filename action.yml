@@ -29,6 +29,8 @@ runs:
     - name: Install
       shell: bash
       run: pnpm i --frozen-lockfile
+      env:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
 
     - name: Commit lint
       uses: wagoid/commitlint-github-action@v5
