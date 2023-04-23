@@ -26,21 +26,15 @@ runs:
         node-version: ${{ inputs.node-version }}
         pnpm-version: ${{ inputs.pnpm-version }}
 
-    - name: Install
-      shell: bash
-      run: pnpm i --frozen-lockfile
-      env:
-        GITHUB_TOKEN: ${{ inputs.token }}
-
     - name: Commit lint
       uses: wagoid/commitlint-github-action@v5
 
     - name: Check
-      shell: bash
+      shell: sh
       run: pnpm check
 
     - name: Build production
-      shell: bash
+      shell: sh
       env:
         NODE_ENV: production
       run: pnpm build
