@@ -23,8 +23,11 @@ runs:
         node-version: ${{ inputs.node-version }}
         pnpm-version: ${{ inputs.pnpm-version }}
 
-    - name: Commit lint
-      uses: wagoid/commitlint-github-action@v5
+    # TEMPORARILY DISABLED:
+    # Commitlint action currently mismatches the commitlint major used in some repos.
+    # Re-enable once the action supports the target commitlint version.
+    # - name: Commit lint
+    #   uses: wagoid/commitlint-github-action@v6.2.1
 
     - name: Check
       shell: sh
