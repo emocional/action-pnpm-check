@@ -9,11 +9,34 @@ inputs:
   pnpm-version:
     required: false
     description: pnpm major version
-    default: '9'
+    default: '11'
   node-version:
     required: false
     description: nodejs version
-    default: lts/iron
+    default: 'lts/jod'
+  token:
+    description: github token
+    default: ${{ github.token }}
+  minimum-release-age:
+    required: false
+    description: minimum package release age in minutes
+    default: '1440'
+  cache-dependency-path:
+    required: false
+    description: lockfile path(s) for pnpm store cache key (newline-separated)
+    default: pnpm-lock.yaml
+  working-directory:
+    required: false
+    description: directory to run pnpm install from
+    default: .
+  recursive:
+    required: false
+    description: pass -r to pnpm install
+    default: 'true'
+  strict-peer-dependencies:
+    required: false
+    description: pass --strict-peer-dependencies to pnpm install
+    default: 'true'
 
 runs:
   using: 'composite'
@@ -22,6 +45,12 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         pnpm-version: ${{ inputs.pnpm-version }}
+        token: ${{ inputs.token }}
+        minimum-release-age: ${{ inputs.minimum-release-age }}
+        cache-dependency-path: ${{ inputs.cache-dependency-path }}
+        working-directory: ${{ inputs.working-directory }}
+        recursive: ${{ inputs.recursive }}
+        strict-peer-dependencies: ${{ inputs.strict-peer-dependencies }}
 
     # TEMPORARILY DISABLED:
     # Commitlint action currently mismatches the commitlint major used in some repos.
@@ -46,4 +75,3 @@ runs:
         output: comment, report-markdown
         package-manager: pnpm
         test-script: pnpm test:cov
-
